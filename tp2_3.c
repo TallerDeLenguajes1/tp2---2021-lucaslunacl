@@ -1,23 +1,65 @@
 #include <stdio.h>
 #include <stdlib.h>
-const int filas = 15;
+#include <time.h>
 
-int main(){
-    int columnas = rand() % 5 + 15;
-    int num = rand() %(999 +1-100) + 100;
-    int ** matriz = (int**) malloc(sizeof(int) * filas);
-    for (int i = i; i < filas; i++)
+#define FILAS 4
+#define MIN 5
+#define MAX 6
+
+int **p_mt;
+int cantPares(int **p_mt, int columnas);
+
+int main (){
+	srand(time(NULL));
+	int columnas=rand()%(MAX - MIN + 1) + MAX;
+    p_mt=(int **)malloc(sizeof(int*) * FILAS);
+    for (int i = 0; i < FILAS; i++)
     {
-        matriz[i] = (int *) malloc(sizeof(int) * columnas); // apunto al puntero simple con el puntero doble
-        for (int j = 0; j < columnas; j++){
-            matriz [i][j] = j;
-            printf("%4d", matriz[i][columnas]);
-
-        }
-        printf("\n");
-        
+    	/* code */
+    	p_mt[i]= (int *)malloc(sizeof(int*) * columnas);
     }
-    free(matriz);
+    int n=999, m=100;
+    for (int j = 0; j < FILAS; j++)
+    {
+    	/* code */
+    	for(int k = 0; k < columnas; k++){
+    		p_mt[j][k]=rand()% (n - m + 1) + m;
+    		if ((p_mt[j][k] % 2)==0)
+    		{
+    			/* code */
+    			printf("se encuentra en el numeros numero de fila= %d \n %d\n\n", j, p_mt[j][k]);
+    		}		
+    	}    	
+    }
+
+    for (int j = 0; j < FILAS; j++)
+    {
+    	/* code */
+    	for(int k = 0; k < columnas; k++){
+    		printf(" %d ", p_mt[j][k]);
+    	}
+    	printf("\n");
+    }
+
+    printf("cantidad de pares= %d\n", cantPares(p_mt,columnas));
     
+
+    free(p_mt);
     return 0;
+}
+
+int cantPares(int **p_mt, int columnas){
+	int pares = 0;
+	for (int i = 0; i < FILAS; i++)
+	{
+		
+		for (int c = 0; c < columnas; c++)
+		{
+			if ((p_mt[i][c] % 2)==0)
+			{
+				pares++;
+			}
+		}
+	}
+	return pares;
 }
